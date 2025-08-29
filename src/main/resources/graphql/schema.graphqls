@@ -1,9 +1,19 @@
+scalar BigDecimal
+
 type Currency {
     code: String!
     name: String
     priority: Int
 }
 
+type CurrencyRateAmount {
+    rate: BigDecimal
+    targetCurrency: Currency
+    baseCurrency: Currency
+}
+
 type Query {
+    getCurrencyByCode(code: String!): Currency
     getAllCurrencies: [Currency]!
+    getCurrencyRate(targetCurrencyCode: String!, baseCurrencyCode: String!): CurrencyRateAmount
 }

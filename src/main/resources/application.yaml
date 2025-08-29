@@ -13,3 +13,9 @@ spring:
     username: postgres
     password: 12345
     driverClassName: org.postgresql.Driver
+
+api:
+  frankfurter:
+    base: https://api.frankfurter.dev/v1
+    latest:
+      with-base: /latest?base=%s
