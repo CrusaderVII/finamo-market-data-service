@@ -1,0 +1,9 @@
+type Currency {
+    code: String!
+    name: String
+    priority: Int
+}
+
+type Query {
+    getAllCurrencies: [Currency]!
+}
