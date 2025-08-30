@@ -26,14 +26,14 @@ public class CurrencyRateAmount {
     /**
      * Currency being evaluated or converted to.
      * <p>
-     * In example, it is USD. We convert RUB to USD, e.g. we want to know how many rubbles in dollars we have
+     * In example, it is RUB. We convert from USD to RUB, e.g. we want to know how many rubbles in one dollar.
      */
     Currency targetCurrency;
 
     /**
      * The base currency used for converting
      * <p>
-     * In example, it is RUB. We convert RUB to USD, e.g. we want to know how many rubbles in dollars we have
+     * In example, it is USD. We convert RUB to USD, e.g. we want to know how many rubbles in one dollar.
      */
     Currency baseCurrency;
 

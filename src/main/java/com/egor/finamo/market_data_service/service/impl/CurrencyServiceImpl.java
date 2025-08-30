@@ -1,8 +1,9 @@
-package com.egor.finamo.market_data_service.service;
+package com.egor.finamo.market_data_service.service.impl;
 
 import com.egor.finamo.market_data_service.repo.CurrencyRepository;
 import com.egor.finamo.market_data_service.data.Currency;
 
+import com.egor.finamo.market_data_service.service.CurrencyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -10,13 +11,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class CurrencyServiceImpl implements CurrencyService{
+public class CurrencyServiceImpl implements CurrencyService {
 
     private static Logger logger = LoggerFactory.getLogger(CurrencyServiceImpl.class);
+
+    private static final int NUMBER_OF_MAIN_CURRENCIES = 3;
 
     private final CurrencyRepository currencyRepository;
 
@@ -24,8 +28,12 @@ public class CurrencyServiceImpl implements CurrencyService{
     public Currency getCurrencyByCode(String code) {
         Currency currency = currencyRepository.findById(code)
                 .orElseThrow();
-        logger.info(currency.getCode());
         return currency;
+    }
+
+    @Override
+    public Collection<Currency> getMainCurrencies() {
+        return currencyRepository.findMainCurrencies(NUMBER_OF_MAIN_CURRENCIES);
     }
 
     @Override

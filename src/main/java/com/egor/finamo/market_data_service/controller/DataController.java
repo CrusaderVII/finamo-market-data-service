@@ -28,4 +28,9 @@ public class DataController {
     public CurrencyRateAmount getCurrencyRate(@Argument String targetCurrencyCode, @Argument String baseCurrencyCode) {
         return currencyRateService.getCurrencyRate(targetCurrencyCode, baseCurrencyCode);
     }
+
+    @QueryMapping
+    public Collection<Currency> getMainCurrencies() {
+        return currencyService.getMainCurrencies();
+    }
 }

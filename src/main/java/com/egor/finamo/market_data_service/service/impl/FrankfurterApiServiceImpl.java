@@ -1,8 +1,8 @@
-package com.egor.finamo.market_data_service.service;
+package com.egor.finamo.market_data_service.service.impl;
 
 import com.egor.finamo.market_data_service.config.FrankfurterProps;
-import com.egor.finamo.market_data_service.data.CurrencyRateAmount;
 import com.egor.finamo.market_data_service.data.api.FrankfurterApiDto;
+import com.egor.finamo.market_data_service.service.ApiService;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -14,14 +14,13 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 @Service
 @RequiredArgsConstructor
-public class FrankfurterApiServiceImpl {
+public class FrankfurterApiServiceImpl implements ApiService {
 
     private final FrankfurterProps props;
 

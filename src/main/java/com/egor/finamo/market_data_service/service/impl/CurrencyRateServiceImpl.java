@@ -1,7 +1,9 @@
-package com.egor.finamo.market_data_service.service;
+package com.egor.finamo.market_data_service.service.impl;
 
 import com.egor.finamo.market_data_service.data.Currency;
 import com.egor.finamo.market_data_service.data.CurrencyRateAmount;
+import com.egor.finamo.market_data_service.service.ApiService;
+import com.egor.finamo.market_data_service.service.CurrencyRateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,17 +13,17 @@ import java.net.URISyntaxException;
 
 @Service
 @RequiredArgsConstructor
-public class CurrencyRateServiceImpl implements CurrencyRateService{
+public class CurrencyRateServiceImpl implements CurrencyRateService {
 
     private final CurrencyServiceImpl currencyService;
-    private final FrankfurterApiServiceImpl apiService;
+    private final ApiService apiService;
 
     @Override
     public CurrencyRateAmount getCurrencyRate(String targetCurrencyCode, String baseCurrencyCode) {
         Currency targetCurrency = currencyService.getCurrencyByCode(targetCurrencyCode);
         Currency baseCurrency = currencyService.getCurrencyByCode(baseCurrencyCode);
 
-        BigDecimal amount = BigDecimal.ZERO;
+        BigDecimal amount;
         try {
             amount = apiService.getCurrencyRateFromApi(targetCurrencyCode, baseCurrencyCode);
         } catch (URISyntaxException | IOException | InterruptedException e) {
