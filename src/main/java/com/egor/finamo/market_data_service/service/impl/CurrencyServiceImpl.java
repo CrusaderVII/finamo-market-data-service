@@ -32,6 +32,11 @@ public class CurrencyServiceImpl implements CurrencyService {
     }
 
     @Override
+    public Collection<Currency> getCurrenciesByCodes(Collection<String> codes) {
+        return currencyRepository.findAllById(codes);
+    }
+
+    @Override
     public Collection<Currency> getMainCurrencies() {
         return currencyRepository.findMainCurrencies(NUMBER_OF_MAIN_CURRENCIES);
     }

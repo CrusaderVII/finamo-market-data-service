@@ -2,10 +2,11 @@ package com.egor.finamo.market_data_service.service;
 
 import com.egor.finamo.market_data_service.data.CurrencyRateAmount;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Collection;
-import java.util.Currency;
 
 public interface CurrencyRateService {
 
-    CurrencyRateAmount getCurrencyRate(String targetCurrencyCode, String baseCurrencyCode);
+    Collection<CurrencyRateAmount> getCurrencyRates(Collection<String> targetCurrencyCode, String baseCurrencyCode);
 }

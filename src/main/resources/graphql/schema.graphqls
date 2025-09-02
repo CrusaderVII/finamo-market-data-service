@@ -15,6 +15,6 @@ type CurrencyRateAmount {
 type Query {
     getCurrencyByCode(code: String!): Currency
     getAllCurrencies: [Currency]!
-    getCurrencyRate(targetCurrencyCode: String!, baseCurrencyCode: String!): CurrencyRateAmount
+    getCurrencyRates(targetCurrencyCodes: [String!]!, baseCurrencyCode: String!): [CurrencyRateAmount]
     getMainCurrencies: [Currency]!
 }

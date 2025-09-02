@@ -7,5 +7,6 @@ import java.util.Collection;
 public interface CurrencyService {
     Collection<Currency> getAllCurrencies();
     Collection<Currency> getMainCurrencies();
+    Collection<Currency> getCurrenciesByCodes(Collection<String> codes);
     Currency getCurrencyByCode(String code);
 }

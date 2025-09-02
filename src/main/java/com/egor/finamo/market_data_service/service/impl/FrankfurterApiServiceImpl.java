@@ -8,6 +8,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -17,7 +19,11 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Collection;
+import java.util.Map;
+import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class FrankfurterApiServiceImpl implements ApiService {
@@ -29,7 +35,19 @@ public class FrankfurterApiServiceImpl implements ApiService {
         .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
         .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-    public BigDecimal getCurrencyRateFromApi(String targetCurrencyCode, String baseCurrencyCode) throws
+    public Collection<Map.Entry<String, BigDecimal>> getCurrencyRatesFromApi(Collection<String> targetCurrencyCodes, String baseCurrencyCode) throws
+            URISyntaxException,
+            IOException,
+            InterruptedException {
+
+        FrankfurterApiDto dto = getFrankfurterApiResponse(baseCurrencyCode);
+
+         return dto.rates().entrySet().stream()
+                 .filter(entry -> targetCurrencyCodes.contains(entry.getKey()))
+                 .toList();
+    }
+
+    private FrankfurterApiDto getFrankfurterApiResponse(String baseCurrencyCode) throws
             URISyntaxException,
             IOException,
             InterruptedException {
@@ -43,8 +61,6 @@ public class FrankfurterApiServiceImpl implements ApiService {
         HttpResponse<String> response = HttpClient.newHttpClient()
                 .send(request, HttpResponse.BodyHandlers.ofString());
 
-        FrankfurterApiDto dto = mapper.readValue(response.body(), FrankfurterApiDto.class);
-
-        return dto.rates().get(targetCurrencyCode);
+        return mapper.readValue(response.body(), FrankfurterApiDto.class);
     }
 }
